@@ -35,5 +35,5 @@ Connect this repo in Vercel and it auto-deploys on every push to `main`.
 
 ## To do
 
-- Wire Shopify checkout (Buy Button)
+- Add inventory to the Shopify variants (they're at 0, so checkout shows "sold out")
 - Connect the email signup + contact/wholesale forms to a real endpoint
