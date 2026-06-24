@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-store, max-age=0">
+<title>More Lake — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="wordmark">More Lake</a>
+  <div class="navr">
+    <a href="index.html#shop">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="#" class="live">CART (0)</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="eyebrow">Why this exists</div>
+  <h1>A t-shirt won't<br>fix this.</h1>
+  <p class="lede">A shirt is not going to save the Great Salt Lake. This is a big problem, and the only people who can solve it are the ones in charge. Right now they aren't trying.</p>
+
+  <h2>The actual problem</h2>
+  <p>Utah's leadership lets water-hungry crops like alfalfa keep draining the lake, and invites the biggest data centers in the world to use billions of gallons more. The lake keeps dropping toward a record low while they wave it through.</p>
+  <p>A drying lake is also a public health problem. The exposed lakebed is full of arsenic and other heavy metals. As it dries, the wind kicks it up as toxic dust over Salt Lake's air, and it gets worse every foot the water drops.</p>
+
+  <h2>So why sell shirts?</h2>
+  <p>Because the best thing we can do with our money is make the people in office uncomfortable. Embarrassing billboards, press they can't ignore, shirts loud enough that nobody gets to pretend Utah is fine with this. Attention is the only real lever we have, and every dollar of profit goes into pulling it.</p>
+
+  <h2>It's bigger than one data center</h2>
+  <p>We're starting with the Stratos data center because it's the loudest threat right now. But this was never about one project. Servers aren't the only thing draining the lake. Alfalfa and other thirsty crops take even more, and industry takes its share. More Lake will keep showing up wherever the water is going.</p>
+
+  <h2>Are you anti-AI?</h2>
+  <p>No. We use it. We're against dropping a city of water-hungry servers next to a dying lake in the second-driest state in the country.</p>
+
+  <h2 id="facts">The facts. Check them.</h2>
+  <ul class="facts2">
+    <li><span class="n">01</span><span><b>40,000 acres, 9 gigawatts of power.</b><small>The original Stratos footprint, bigger than Bryce Canyon. Cut about 75% after public pushback. Source: Grist</small></span></li>
+    <li><span class="n">02</span><span><b>Built next to the Great Salt Lake at record-low water.</b><small>In the second-driest state in the country. Source: Salt Lake Tribune</small></span></li>
+    <li><span class="n">03</span><span><b>Pushed through a zoning loophole.</b><small>Approved fast through a mechanism called MIDA. Critics called it rushed and opaque. Source: Roll Call</small></span></li>
+    <li><span class="n">04</span><span><b>About 4,000 Utahns formally filed to stop it.</b><small>The first water-rights application was withdrawn May 7, 2026. Source: Salt Lake Tribune</small></span></li>
+  </ul>
+
+  <h2 id="faq">FAQ</h2>
+  <div class="faq2">
+    <div class="q">Where does my money go?</div>
+    <div class="a">Profit goes into visibility (billboards, stickers, getting the word out) and potentially donations to other great orgs as we grow. We will post a running ledger of where it went.</div>
+    <div class="q">Is my purchase tax-deductible?</div>
+    <div class="a">No. You're buying a shirt, not making a donation. We're a small business, not a 501c3 charity.</div>
+    <div class="q">Who's behind this?</div>
+    <div class="a">Two Utahns who live in Salt Lake City, own a home here, and have a growing family here. We want clean water, clean air to breathe, and a place where our kids (and everyone's kids!) can grow up safely.</div>
+    <div class="q">Can I get a bunch for my crew?</div>
+    <div class="a">Yes. <a href="wholesale.html">Wholesale and bulk is here.</a></div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="fm">More Lake</div>
+    <div class="ft">Helping fill the Great Salt Lake. A protest you can wear, by two Utahns. morelake.org</div>
+  </div>
+  <div>
+    <h4>Shop</h4>
+    <a href="index.html#shop">The tee · $20</a>
+    <a href="wholesale.html">Wholesale / bulk</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div>
+    <h4>More</h4>
+    <a href="about.html">About</a>
+    <a href="about.html#facts">The facts</a>
+    <a href="about.html#faq">FAQ</a>
+  </div>
+</footer>
+
+<form class="emailbar" id="emailbar">
+  <span class="lbl">JOIN THE MOVEMENT</span>
+  <input type="email" placeholder="you@email.com" aria-label="email">
+  <button type="submit">SIGN UP</button>
+</form>
+
+<script>
+  document.getElementById('emailbar').addEventListener('submit',function(e){e.preventDefault();var b=this.querySelector('button');b.textContent='THANKS';setTimeout(function(){b.textContent='SIGN UP'},1500);});
+</script>
+</body>
+</html>
