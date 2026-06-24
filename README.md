@@ -33,7 +33,12 @@ Static, no build:
 
 Connect this repo in Vercel and it auto-deploys on every push to `main`.
 
+## Commerce
+
+Custom front-end on Shopify's Buy Button SDK (Storefront API), Starter plan. The size picker reads live inventory (sold-out sizes go dead, low stock shows "Only N left"), add-to-cart opens an on-brand slide-in cart drawer, and checkout hands off to Shopify's hosted page.
+
 ## To do
 
-- Add inventory to the Shopify variants (they're at 0, so checkout shows "sold out")
+- Stock the Shopify variants across all sizes/colors (some are at 0 = sold out)
+- Remove the store password in Shopify to open checkout to the public
 - Connect the email signup + contact/wholesale forms to a real endpoint
