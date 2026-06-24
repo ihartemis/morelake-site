@@ -37,4 +37,3 @@ Connect this repo in Vercel and it auto-deploys on every push to `main`.
 
 - Wire Shopify checkout (Buy Button)
 - Connect the email signup + contact/wholesale forms to a real endpoint
-- Set up `hello@morelake.org`
