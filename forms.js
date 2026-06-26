@@ -60,4 +60,15 @@
         .catch(function () { flash(b, 'TRY AGAIN', 2800, orig); });
     });
   });
+
+  // ---- Free-shipping bar dismiss (home page) ----
+  var shipbar = document.getElementById('shipbar');
+  if (shipbar) {
+    try { if (localStorage.getItem('ml_shipbar_off') === '1') shipbar.classList.add('hide'); } catch (e) {}
+    var sx = document.getElementById('shipbarX');
+    if (sx) sx.addEventListener('click', function () {
+      shipbar.classList.add('hide');
+      try { localStorage.setItem('ml_shipbar_off', '1'); } catch (e) {}
+    });
+  }
 })();
