@@ -9,6 +9,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<meta name="description" content="Fighting to fill the Great Salt Lake. Buy a t-shirt to support the cause.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="More Lake">
+<meta property="og:title" content="More Lake">
+<meta property="og:description" content="Fighting to fill the Great Salt Lake. Buy a t-shirt to support the cause.">
+<meta property="og:url" content="https://morelake.org/">
+<meta property="og:image" content="https://morelake.org/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="More Lake">
+<meta name="twitter:description" content="Fighting to fill the Great Salt Lake. Buy a t-shirt to support the cause.">
+<meta name="twitter:image" content="https://morelake.org/assets/og.png">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-uACn6INr_4pYyC8AbRy3_.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
 
@@ -185,10 +207,29 @@
     function match(color,size){return VARIANTS.find(function(x){return x.opts.some(function(t){return t.indexOf(color)>-1;})&&x.opts.some(function(t){return t===size;});});}
     function cur(){var sw=document.querySelector('#swatches .sw.on'),sz=document.querySelector('#sizes .sz.on');return {color:(sw?sw.dataset.color:'blue').toLowerCase(),size:(sz?sz.textContent.trim().toLowerCase():'')};}
     function pdpQty(){var q=document.getElementById('qval');return q?(parseInt(q.textContent,10)||1):1;}
+    function firstAvailableSize(color){
+      var found=null;
+      document.querySelectorAll('#sizes .sz').forEach(function(b){
+        if(found)return;
+        var mv=match(color,b.textContent.trim().toLowerCase());
+        if(mv&&mv.avail)found=b;
+      });
+      return found;
+    }
+    function ensureSize(color){
+      var sz=document.querySelector('#sizes .sz.on');
+      var mv=sz?match(color,sz.textContent.trim().toLowerCase()):null;
+      if(!mv||!mv.avail){
+        var b=firstAvailableSize(color);
+        if(b){document.querySelectorAll('#sizes .sz').forEach(function(x){x.classList.remove('on');});b.classList.add('on');}
+      }
+    }
     function refresh(){
       if(!VARIANTS.length)return;
       var c=cur();
       document.querySelectorAll('#sizes .sz').forEach(function(b){var v=match(c.color,b.textContent.trim().toLowerCase());b.classList.toggle('soldout',!v||!v.avail);});
+      ensureSize(c.color);
+      c=cur();
       var v=c.size?match(c.color,c.size):null;
       if(!v||!v.avail){addBtn.classList.add('soldout');addBtn.textContent='SOLD OUT';if(note){note.textContent=c.size?'Sold out in this size':'';note.className='stocknote out';}}
       else{addBtn.classList.remove('soldout');addBtn.textContent='ADD TO CART · $25';if(note){if(v.qty!=null&&v.qty>0&&v.qty<=5){note.textContent='Only '+v.qty+' left';note.className='stocknote low';}else{note.textContent='';note.className='stocknote';}}if(v.qty!=null&&v.qty>0){var qe=document.getElementById('qval');if(qe&&(parseInt(qe.textContent,10)||1)>v.qty)qe.textContent=v.qty;}}
