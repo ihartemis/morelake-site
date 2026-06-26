@@ -156,7 +156,7 @@
 
   // ---- Shopify: live stock + on-site cart drawer (Storefront API) ----
   (function(){
-    var SHOP='cgc10s-wr.myshopify.com', TOKEN='842c94f2799cb11d07cfb4695abb3f35', PID='9470919606530';
+    var SHOP='cgc10s-wr.myshopify.com', TOKEN='ea864748ef8052ec1c69f23bfa16587c', PID='9470919606530';
     var CLIENT=null, VARIANTS=[], CO=null, ready=false;
     var addBtn=document.getElementById('add'), note=document.getElementById('stocknote');
     var itemsEl=document.getElementById('cartItems'), subEl=document.getElementById('cartSubtotal'), cartLink=document.getElementById('cartLink');
@@ -191,9 +191,21 @@
       document.querySelectorAll('#sizes .sz').forEach(function(b){var v=match(c.color,b.textContent.trim().toLowerCase());b.classList.toggle('soldout',!v||!v.avail);});
       var v=c.size?match(c.color,c.size):null;
       if(!v||!v.avail){addBtn.classList.add('soldout');addBtn.textContent='SOLD OUT';if(note){note.textContent=c.size?'Sold out in this size':'';note.className='stocknote out';}}
-      else{addBtn.classList.remove('soldout');addBtn.textContent='ADD TO CART · $25';if(note){if(v.qty!=null&&v.qty>0&&v.qty<=5){note.textContent='Only '+v.qty+' left';note.className='stocknote low';}else{note.textContent='';note.className='stocknote';}}}
+      else{addBtn.classList.remove('soldout');addBtn.textContent='ADD TO CART · $25';if(note){if(v.qty!=null&&v.qty>0&&v.qty<=5){note.textContent='Only '+v.qty+' left';note.className='stocknote low';}else{note.textContent='';note.className='stocknote';}}if(v.qty!=null&&v.qty>0){var qe=document.getElementById('qval');if(qe&&(parseInt(qe.textContent,10)||1)>v.qty)qe.textContent=v.qty;}}
     }
 
+    function fetchInventory(){
+      var ql='{ product(id:"gid://shopify/Product/'+PID+'"){ variants(first:50){ edges{ node{ id title quantityAvailable } } } } }';
+      fetch('https://'+SHOP+'/api/2024-01/graphql.json',{method:'POST',headers:{'Content-Type':'application/json','X-Shopify-Storefront-Access-Token':TOKEN},body:JSON.stringify({query:ql})})
+        .then(function(r){return r.json();})
+        .then(function(j){
+          var pr=j&&j.data&&j.data.product, eds=(pr&&pr.variants&&pr.variants.edges)||[];
+          var byId={},byTitle={};
+          eds.forEach(function(e){var n=e.node;if(n&&n.quantityAvailable!=null){byId[n.id]=n.quantityAvailable;byTitle[String(n.title||'').toLowerCase().trim()]=n.quantityAvailable;}});
+          VARIANTS.forEach(function(v){var qn=byId[v.gid];if(qn==null)qn=byTitle[v.opts.join(' / ')];if(qn!=null)v.qty=qn;});
+          refresh();
+        }).catch(function(){});
+    }
     function setCO(c){CO=c;render();updCount();}
     function drop(){try{localStorage.removeItem('ml_co');}catch(e){}}
     function newCart(){CLIENT.checkout.create().then(function(c){try{localStorage.setItem('ml_co',c.id);}catch(e){}setCO(c);ready=true;});}
@@ -244,13 +256,13 @@
     loadSDK(function(){
       CLIENT=ShopifyBuy.buildClient({domain:SHOP,storefrontAccessToken:TOKEN});
       var ids=[PID,(function(){try{return btoa('gid://shopify/Product/'+PID);}catch(e){return PID;}})(),'gid://shopify/Product/'+PID];
-      (function go(i){if(i>=ids.length){console.warn('[ML] product fetch failed');return;}CLIENT.product.fetch(ids[i]).then(function(p){if(!ingest(p))go(i+1);}).catch(function(){go(i+1);});})(0);
+      (function go(i){if(i>=ids.length){console.warn('[ML] product fetch failed');return;}CLIENT.product.fetch(ids[i]).then(function(p){if(!ingest(p)){go(i+1);}else{fetchInventory();}}).catch(function(){go(i+1);});})(0);
       getCart();
     });
 
     var qv=document.getElementById('qval'),qm=document.getElementById('qminus'),qp=document.getElementById('qplus');
     if(qm)qm.onclick=function(){qv.textContent=Math.max(1,(parseInt(qv.textContent,10)||1)-1);};
-    if(qp)qp.onclick=function(){qv.textContent=Math.min(10,(parseInt(qv.textContent,10)||1)+1);};
+    if(qp)qp.onclick=function(){var c=cur(),sv=c.size?match(c.color,c.size):null,mx=(sv&&sv.qty!=null&&sv.qty>0)?Math.min(10,sv.qty):10;qv.textContent=Math.min(mx,(parseInt(qv.textContent,10)||1)+1);};
     document.querySelectorAll('#swatches .sw').forEach(function(s){s.addEventListener('click',refresh);});
     document.querySelectorAll('#sizes .sz').forEach(function(s){s.addEventListener('click',refresh);});
     function doAdd(v){addBtn.textContent='ADDING…';addLine(v.gid,pdpQty()).then(function(res){addBtn.textContent='ADD TO CART · $25';var q=document.getElementById('qval');if(q)q.textContent='1';if(res&&res.capped){if(res.added<=0)showCartMsg('You already have all '+res.total+' we have in stock.');else showCartMsg('Only '+res.total+' left in stock, so we added '+res.added+'.');}}).catch(function(){addBtn.textContent='ADD TO CART · $25';});}
