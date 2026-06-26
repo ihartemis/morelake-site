@@ -37,8 +37,11 @@ Connect this repo in Vercel and it auto-deploys on every push to `main`.
 
 Custom front-end on Shopify's Buy Button SDK (Storefront API), Starter plan. The size picker reads live inventory (sold-out sizes go dead, low stock shows "Only N left"), add-to-cart opens an on-brand slide-in cart drawer, and checkout hands off to Shopify's hosted page.
 
+Newsletter signups create Shopify customers (marketing opt-in) via the Storefront API; contact + wholesale forms post to Web3Forms → hello@morelake.org. All form handling lives in `forms.js`.
+
 ## To do
 
 - Stock the Shopify variants across all sizes/colors (some are at 0 = sold out)
 - Remove the store password in Shopify to open checkout to the public
-- Connect the email signup + contact/wholesale forms to a real endpoint
+- Move checkout onto a branded `shop.morelake.org` subdomain (now on Basic)
+- Delete the unused "More Lake Storefront" dev-dashboard OAuth app

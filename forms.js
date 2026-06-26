@@ -4,7 +4,7 @@
 (function () {
   var SHOP = 'cgc10s-wr.myshopify.com';
   var TOKEN = 'ea864748ef8052ec1c69f23bfa16587c';   // public Storefront token (Headless channel)
-  var WEB3_KEY = 'YOUR_WEB3FORMS_KEY';               // <- paste your web3forms.com access key here
+  var WEB3_KEY = '3f35a8c9-76d6-4d2f-8f56-b1a1f8b7fd10'; // web3forms.com access key -> hello@morelake.org
 
   function flash(btn, text, ms, orig) {
     btn.textContent = text;
