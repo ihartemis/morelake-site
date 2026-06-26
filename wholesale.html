@@ -27,16 +27,16 @@
   <p class="lede">Want a stack of these for your shop, your crew, an event, or a fundraiser?</p>
   <p>Tell us what you're thinking and we'll get back to you with pricing.</p>
 
-  <form class="form" data-mock>
+  <form class="form" data-mock data-subject="More Lake — wholesale inquiry">
     <div class="two">
-      <div class="row"><label>Name</label><input type="text" placeholder="Your name"></div>
-      <div class="row"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="row"><label>Name</label><input type="text" name="name" placeholder="Your name"></div>
+      <div class="row"><label>Email</label><input type="email" name="email" placeholder="you@email.com"></div>
     </div>
     <div class="two">
-      <div class="row"><label>Shop / org</label><input type="text" placeholder="Where it'll live"></div>
-      <div class="row"><label>Quantity</label><input type="text" placeholder="e.g. 50"></div>
+      <div class="row"><label>Shop / org</label><input type="text" name="shop_or_org" placeholder="Where it'll live"></div>
+      <div class="row"><label>Quantity</label><input type="text" name="quantity" placeholder="e.g. 50"></div>
     </div>
-    <div class="row"><label>What do you have in mind?</label><textarea placeholder="Colors, sizes, timing, the event"></textarea></div>
+    <div class="row"><label>What do you have in mind?</label><textarea name="message" placeholder="Colors, sizes, timing, the event"></textarea></div>
     <button type="submit">Send inquiry</button>
   </form>
 </div>
@@ -66,9 +66,6 @@
   <button type="submit">SIGN UP</button>
 </form>
 
-<script>
-  document.getElementById('emailbar').addEventListener('submit',function(e){e.preventDefault();var b=this.querySelector('button');b.textContent='THANKS';setTimeout(function(){b.textContent='SIGN UP'},1500);});
-  document.querySelectorAll('form[data-mock]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var b=f.querySelector('button');b.textContent='SENT (MOCKUP)';setTimeout(function(){b.textContent='Send inquiry'},1600);});});
-</script>
+<script src="forms.js"></script>
 </body>
 </html>

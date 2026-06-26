@@ -27,12 +27,12 @@
   <p class="lede">Press, partnerships, questions, or you want to yell about the lake with us.</p>
   <p>Email <a class="ln" href="mailto:hello@morelake.org">hello@morelake.org</a>, or drop a note below.</p>
 
-  <form class="form" data-mock>
+  <form class="form" data-mock data-subject="More Lake — contact form">
     <div class="two">
-      <div class="row"><label>Name</label><input type="text" placeholder="Your name"></div>
-      <div class="row"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="row"><label>Name</label><input type="text" name="name" placeholder="Your name"></div>
+      <div class="row"><label>Email</label><input type="email" name="email" placeholder="you@email.com"></div>
     </div>
-    <div class="row"><label>Message</label><textarea placeholder="What's up?"></textarea></div>
+    <div class="row"><label>Message</label><textarea name="message" placeholder="What's up?"></textarea></div>
     <button type="submit">Send</button>
   </form>
 </div>
@@ -62,9 +62,6 @@
   <button type="submit">SIGN UP</button>
 </form>
 
-<script>
-  document.getElementById('emailbar').addEventListener('submit',function(e){e.preventDefault();var b=this.querySelector('button');b.textContent='THANKS';setTimeout(function(){b.textContent='SIGN UP'},1500);});
-  document.querySelectorAll('form[data-mock]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var b=f.querySelector('button');b.textContent='SENT (MOCKUP)';setTimeout(function(){b.textContent='Send'},1600);});});
-</script>
+<script src="forms.js"></script>
 </body>
 </html>
