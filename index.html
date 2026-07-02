@@ -167,7 +167,11 @@
     thumbEls.forEach(function(x){x.classList.remove('on')});
     t.classList.add('on');
   }
-  thumbEls.forEach(function(t){t.addEventListener('click',function(){selectThumb(t);});});
+  thumbEls.forEach(function(t){t.addEventListener('click',function(){
+    var sw=document.querySelector('#swatches .sw[data-color="'+t.dataset.color+'"]');
+    if(sw&&!sw.classList.contains('on'))sw.click();
+    selectThumb(t);
+  });});
   document.querySelectorAll('#swatches .sw').forEach(function(sw){
     sw.addEventListener('click',function(){
       document.querySelectorAll('#swatches .sw').forEach(function(x){x.classList.remove('on')});
