@@ -50,7 +50,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:22px 3
 /* product */
 .product{border-top:1px solid var(--line);padding:80px 30px;display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1180px;margin:0 auto}
 .gallery .main{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;border:1px solid var(--line);padding:2%}
-.thumbs{display:flex;gap:10px;margin-top:10px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .thumbs img{width:76px;height:76px;object-fit:contain;background:#fff;border:1px solid var(--line);cursor:pointer;opacity:.5;transition:.15s}
 .thumbs img:hover,.thumbs img.on{opacity:1;border-color:var(--orange)}
 .buy{display:flex;flex-direction:column;justify-content:center;gap:20px}

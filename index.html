@@ -63,9 +63,12 @@
   <div class="gallery">
     <img class="main" id="mainImg" src="assets/blue-flat.png" alt="More Lake Less Data tee">
     <div class="thumbs" id="thumbs">
-      <img src="assets/blue-flat.png" class="on" alt="flat">
-      <img src="assets/blue-woman.png" alt="on model">
-      <img src="assets/blue-man.png" alt="on model">
+      <img src="assets/blue-flat.png" class="on" data-color="blue" alt="washed blue, flat">
+      <img src="assets/blue-woman.png" data-color="blue" alt="washed blue on model">
+      <img src="assets/blue-man.png" data-color="blue" alt="washed blue on model">
+      <img src="assets/black-flat.png" data-color="black" alt="washed black, flat">
+      <img src="assets/black-woman.png" data-color="black" alt="washed black on model">
+      <img src="assets/black-man.png" data-color="black" alt="washed black on model">
     </div>
   </div>
   <div class="buy">
@@ -156,24 +159,23 @@
 
 <script>
   // ---- product interactions ----
-  var SETS = {
-    blue:  ['assets/blue-flat.png','assets/blue-woman.png','assets/blue-man.png'],
-    black: ['assets/black-flat.png','assets/black-woman.png','assets/black-man.png']
-  };
   var NAMES = {blue:'Washed Blue', black:'Washed Black'};
-  var mainImg = document.getElementById('mainImg'), thumbs = document.getElementById('thumbs');
-  function loadColor(color){
-    document.getElementById('colorName').textContent = NAMES[color];
-    mainImg.src = SETS[color][0];
-    thumbs.innerHTML='';
-    SETS[color].forEach(function(src,i){
-      var t=document.createElement('img');t.src=src;if(i===0)t.className='on';
-      t.addEventListener('click',function(){mainImg.src=src;thumbs.querySelectorAll('img').forEach(function(x){x.classList.remove('on')});t.classList.add('on');});
-      thumbs.appendChild(t);
-    });
+  var mainImg = document.getElementById('mainImg');
+  var thumbEls = document.querySelectorAll('#thumbs img');
+  function selectThumb(t){
+    mainImg.src = t.getAttribute('src');
+    thumbEls.forEach(function(x){x.classList.remove('on')});
+    t.classList.add('on');
   }
+  thumbEls.forEach(function(t){t.addEventListener('click',function(){selectThumb(t);});});
   document.querySelectorAll('#swatches .sw').forEach(function(sw){
-    sw.addEventListener('click',function(){document.querySelectorAll('#swatches .sw').forEach(function(x){x.classList.remove('on')});sw.classList.add('on');loadColor(sw.dataset.color);});
+    sw.addEventListener('click',function(){
+      document.querySelectorAll('#swatches .sw').forEach(function(x){x.classList.remove('on')});
+      sw.classList.add('on');
+      document.getElementById('colorName').textContent = NAMES[sw.dataset.color];
+      var t = document.querySelector('#thumbs img[data-color="'+sw.dataset.color+'"]');
+      if(t)selectThumb(t);
+    });
   });
   function bindButtons(sel){
     document.querySelectorAll(sel+' .sz').forEach(function(s){
